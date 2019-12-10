@@ -40,7 +40,7 @@
 在windows安裝python的問題：感覺我處理這個project有一大部分的時間是在處理環境的部分
 主要是因為「pipenv install」的部分，pygraphviz的路徑問題一直導致失敗
 
-![image]https://i.imgur.com/YZPX25H.png
+![image](img/meme1_custom.png)
 
 解決方法：直接使用anaconda管理，需要神麼就套件pip install下載，但要記得管理requirement.txt
 
