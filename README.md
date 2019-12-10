@@ -1,159 +1,51 @@
-# TOC Project 2020
+# TOC Project 2020-貓貓梗圖產生器
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
+## 動機
+	因為有時候想做梗圖的時候，但很懶得調整文字的位置及大小，想說有沒有一個東西能夠懶人的輸入文字，就可以產生不錯的圖片，排版也不會太難看
 
-[![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
+## 使用技術
+* FSM
+* line carousel template/ button template
+* line 傳送圖片功能
+* 爬蟲
+* python pillow (用來畫圖)
 
+## 檔案介紹
+1. app.py： 主要運行的檔案，定義FSM的transition與在哪個state call哪個trigger function，並處理line傳送過來的資訊
+2. fsm.py： FSM中有關 enter/exit state 與 check condition 的function都寫在此檔案中
+3. utils.py： linebot model的使用和傳送的function都寫在此檔案中
+4. upload.py： 用來畫圖並調整畫在圖片位置的文字，upload至imgur以便傳圖片回line的function都寫在此檔案中
+5. crawler.py： 用來爬特定的網址中的圖片，並random回傳圖片的網址
 
-Template Code for TOC Project 2020
+## 功能介紹
+### 選擇想要的梗圖加上文字
+    1. 在user state中輸入「選擇梗圖」
+	2. 跳出選擇梗圖的carousel template，我寫了三個可以自己填字的梗圖選擇
+	![image]https://i.imgur.com/IYHDWco.png
+	3. 選擇完之後，打上你想要填上的文字，填完就會返回你做好的圖片了
+	![image]https://i.imgur.com/0kYjS0h.png
 
-A Line bot based on a finite state machine
+### fsm圖呈現
+	在user state中輸入「fsm」，就會回傳fsm圖
+	![image]https://i.imgur.com/3wzDnGl.png
 
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
+### 隨機傳梗圖
+	在user state中輸入「隨機傳梗圖」，就會利用爬蟲的方法，在此網頁的第1-300頁的梗圖中隨機選擇一張圖片回傳
+	![image]https://i.imgur.com/kPe1T0e.png
 
-## Setup
+## FSM圖
+![image]https://i.imgur.com/KXkGrza.png
 
-### Prerequisite
-* Python 3.6
-* Pipenv
-* Facebook Page and App
-* HTTPS Server
+## 遇到困難
+在windows安裝python的問題：感覺我處理這個project有一大部分的時間是在處理環境的部分
+主要是因為「pipenv install」的部分，pygraphviz的路徑問題一直導致失敗
 
-#### Install Dependency
-```sh
-pip3 install pipenv
+![image]https://i.imgur.com/YZPX25H.png
 
-pipenv --three
+解決方法：直接使用anaconda管理，需要神麼就套件pip install下載，但要記得管理requirement.txt
 
-pipenv install
-
-pipenv shell
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
-
-
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-ngrok http 8000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-#### b. Servo
-
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
-
-
-## Finite State Machine
-![fsm](./img/show-fsm.png)
-
-## Usage
-The initial state is set to `user`.
-
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
-## Deploy
-Setting to deploy webhooks on Heroku.
-
-### Heroku CLI installation
-
-* [macOS, Windows](https://devcenter.heroku.com/articles/heroku-cli)
-
-or you can use Homebrew (MAC)
-```sh
-brew tap heroku/brew && brew install heroku
-```
-
-or you can use Snap (Ubuntu 16+)
-```sh
-sudo snap install --classic heroku
-```
-
-### Connect to Heroku
-
-1. Register Heroku: https://signup.heroku.com
-
-2. Create Heroku project from website
-
-3. CLI Login
-
-	`heroku login`
-
-### Upload project to Heroku
-
-1. Add local project to Heroku project
-
-	heroku git:remote -a {HEROKU_APP_NAME}
-
-2. Upload project
-
-	```
-	git add .
-	git commit -m "Add code"
-	git push -f heroku master
-	```
-
-3. Set Environment - Line Messaging API Secret Keys
-
-	```
-	heroku config:set LINE_CHANNEL_SECRET=your_line_channel_secret
-	heroku config:set LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
-	```
-
-4. Your Project is now running on Heroku!
-
-	url: `{HEROKU_APP_NAME}.herokuapp.com/callback`
-
-	debug command: `heroku logs --tail --app {HEROKU_APP_NAME}`
-
-5. If fail with `pygraphviz` install errors
-
-	run commands below can solve the problems
-	```
-	heroku buildpacks:set heroku/python
-	heroku buildpacks:add --index 1 heroku-community/apt
-	```
-
-	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
-
-## Reference
-[Pipenv](https://medium.com/@chihsuan/pipenv-更簡單-更快速的-python-套件管理工具-135a47e504f4) ❤️ [@chihsuan](https://github.com/chihsuan)
-
-[TOC-Project-2019](https://github.com/winonecheng/TOC-Project-2019) ❤️ [@winonecheng](https://github.com/winonecheng)
-
-Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
-
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
+## 可改進的部分&願景
+1. 填入文字，自動調整合適大小的演算法
+2. 增加多一點可選擇的圖片
+3. 能讓多人同時使用
+4. 在隨機傳梗圖中，讓user自己上傳梗圖

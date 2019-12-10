@@ -11,10 +11,13 @@ def crawl_img():
     soup = BeautifulSoup(res.text, 'html.parser')
     array = soup.find_all('img')
 
-    rand = random.randint(0,len(array))
+    rand = random.randint(0,len(array)-1)
 
 
-    while array[rand]['src'].find("http", 6) != -1:
-        rand = random.randint(0,len(array))
+    while array[rand]['src'].find("https") == -1:
+        rand = random.randint(0,len(array)-1)
+        print(array[rand]['src'])
 
+
+    print(array[rand]['src'])
     return array[rand]['src']

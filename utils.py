@@ -104,7 +104,7 @@ def send_button_message(reply_token):
     buttons_template_message = TemplateSendMessage(
     alt_text='Buttons template',
     template=ButtonsTemplate(
-        thumbnail_image_url='https://example.com/image.jpg',
+        thumbnail_image_url='https://i.imgur.com/8TQDeIq.jpg',
         title='歡迎使用貓貓梗圖產生器',
         text='所有功能',
         actions=[
