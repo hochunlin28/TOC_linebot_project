@@ -1,7 +1,7 @@
 # TOC Project 2020-貓貓梗圖產生器
 
 ## 動機
-	因為有時候想做梗圖的時候，但很懶得調整文字的位置及大小，想說有沒有一個東西能夠懶人的輸入文字，就可以產生不錯的圖片，排版也不會太難看
+因為有時候想做梗圖的時候，但很懶得調整文字的位置及大小，想說有沒有一個東西能夠懶人的輸入文字，就可以產生不錯的圖片，排版也不會太難看
 
 ## 使用技術
 * FSM
@@ -21,9 +21,9 @@
 ### 選擇想要的梗圖加上文字
     1. 在user state中輸入「選擇梗圖」
 	2. 跳出選擇梗圖的carousel template，我寫了三個可以自己填字的梗圖選擇
-	![image]https://i.imgur.com/IYHDWco.png
+	![image](https://i.imgur.com/IYHDWco.png)
 	3. 選擇完之後，打上你想要填上的文字，填完就會返回你做好的圖片了
-	![image]https://i.imgur.com/0kYjS0h.png
+	![image](https://i.imgur.com/0kYjS0h.png)
 
 ### fsm圖呈現
 	在user state中輸入「fsm」，就會回傳fsm圖
