@@ -20,27 +20,21 @@
 ## 功能介紹
 ### 選擇想要的梗圖加上文字
     1. 在user state中輸入「選擇梗圖」
-	2. 跳出選擇梗圖的carousel template，我寫了三個可以自己填字的梗圖選擇
-	![image](https://i.imgur.com/IYHDWco.png)
-	3. 選擇完之後，打上你想要填上的文字，填完就會返回你做好的圖片了
-	![image](https://i.imgur.com/0kYjS0h.png)
+    2. 跳出選擇梗圖的carousel template，我寫了三個可以自己填字的梗圖選擇
+    3. 選擇完之後，打上你想要填上的文字，填完就會返回你做好的圖片了
 
 ### fsm圖呈現
 	在user state中輸入「fsm」，就會回傳fsm圖
-	![image]https://i.imgur.com/3wzDnGl.png
 
 ### 隨機傳梗圖
 	在user state中輸入「隨機傳梗圖」，就會利用爬蟲的方法，在此網頁的第1-300頁的梗圖中隨機選擇一張圖片回傳
-	![image]https://i.imgur.com/kPe1T0e.png
 
 ## FSM圖
-![image]https://i.imgur.com/KXkGrza.png
+![image](fsm.png)
 
 ## 遇到困難
 在windows安裝python的問題：感覺我處理這個project有一大部分的時間是在處理環境的部分
 主要是因為「pipenv install」的部分，pygraphviz的路徑問題一直導致失敗
-
-![image](img/meme1_custom.png)
 
 解決方法：直接使用anaconda管理，需要神麼就套件pip install下載，但要記得管理requirement.txt
 
