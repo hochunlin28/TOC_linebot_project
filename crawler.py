@@ -8,16 +8,24 @@ def crawl_img():
     url = "https://memes.tw/wtf?sort=hot&page="+str(num)
 
     res = requests.get(url)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    array = soup.find_all('img')
-
+    soup = BeautifulSoup(res.text, 'lxml')
+    array = soup.find_all('img',{'class': 'img-fluid lazy'})
+    
     rand = random.randint(0,len(array)-1)
+    
+    """
+    for img in array:
+        print(img)
+    """
+    
 
 
-    while array[rand]['src'].find("https") == -1:
-        rand = random.randint(0,len(array)-1)
-        print(array[rand]['src'])
+    #while array[rand].find('img',class_='img_fluid lazy') == None:
+    #rand = random.randint(0,len(array)-1)
+    #print(array[rand])
+    
+    print(array[rand]['data-src'])
+    return array[rand]['data-src']
 
+    
 
-    print(array[rand]['src'])
-    return array[rand]['src']
